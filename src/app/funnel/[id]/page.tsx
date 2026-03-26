@@ -5,18 +5,23 @@ import { prisma } from '@/lib/prisma'
 import { FunnelRenderer } from '@/components/FunnelRenderer'
 import { CopyLinkButton } from './CopyLinkButton'
 
-export default async function FunnelPage({ params }: { params: { id: string } }) {
+export default async function FunnelPage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
   const session = await getServerSession(authOptions)
   if (!session?.user?.email) redirect('/login')
 
   const funnel = await prisma.funnel.findFirst({
-    where: { id: params.id, user: { email: session.user.email } },
+    where: { id, user: { email: session.user.email } },
     include: { generatedContent: true },
   })
 
   if (!funnel || !funnel.generatedContent) redirect('/dashboard')
 
-  const funnelUrl = `${process.env.NEXTAUTH_URL}/f/${funnel.id}`
+  const funnelUrl = `${process.env.NEXTAUTH_URL}/f/${id}`
 
   return (
     <div>
