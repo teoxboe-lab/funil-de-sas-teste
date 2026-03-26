@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cream: #fffbeb;
+}
+
+body {
+  background-color: var(--cream);
+}
+
+@layer components {
+  .btn-brutal {
+    @apply border-2 border-black font-bold shadow-brutal
+           transition-all duration-150 cursor-pointer
+           active:shadow-none active:translate-x-1 active:translate-y-1;
+  }
+
+  .card-brutal {
+    @apply border-2 border-black shadow-brutal bg-white;
+  }
+
+  .input-brutal {
+    @apply w-full border-2 border-black px-4 py-3 font-semibold bg-white
+           focus:outline-none focus:bg-brand-yellow transition-colors
+           placeholder:text-gray-400;
+  }
+}

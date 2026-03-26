@@ -1,0 +1,8 @@
+.env.local
+.env.production
+.env
+node_modules/
+.next/
+out/
+*.log
+prisma/generated/
